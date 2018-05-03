@@ -7,6 +7,7 @@
 //
 
 #import "ZXYScrollView.h"
+#import "UIImageView+WebCache.h"
 
 @interface ZXYScrollView ()<UIScrollViewDelegate>
 
@@ -47,7 +48,7 @@
         self.isMessageLabel = YES;
         
         self.mainScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, _scrollWidth, _scrollHeight)];
-
+        
         [self addScrollView];
         
         [self addImageViews];
@@ -72,9 +73,22 @@
     _messageArr = aMessage;
     _imageNum = [_imagesArr count];
     
-    self.leftImageView.backgroundColor = [_imagesArr objectAtIndex:_imageNum-1];
-    self.middleImageView.backgroundColor = [_imagesArr objectAtIndex:_currentIndex];
-    self.rightImageView.backgroundColor = [_imagesArr objectAtIndex:_currentIndex+1];
+    
+    if (aUrls.count == 1) {
+        
+        [self.middleImageView sd_setImageWithURL:[_imagesArr objectAtIndex:_currentIndex]];
+        self.middlemessageLabel.text = _messageArr[_currentIndex];
+        self.mainScrollView.scrollEnabled = NO;
+        [self.timer invalidate];
+
+        return;
+    }
+
+
+    [self.leftImageView sd_setImageWithURL:[_imagesArr objectAtIndex:_imageNum-1]];
+    [self.middleImageView sd_setImageWithURL:[_imagesArr objectAtIndex:_currentIndex]];
+    [self.rightImageView sd_setImageWithURL:[_imagesArr objectAtIndex:_currentIndex+1]];
+
     
     self.leftmessageLabel.text = _messageArr[_imageNum-1];
     self.middlemessageLabel.text = _messageArr[_currentIndex];
@@ -87,7 +101,7 @@
 
 #pragma mark 添加控件
 - (void)addScrollView{
-
+    
     self.mainScrollView.pagingEnabled = YES;
     self.mainScrollView.bounces = NO; //  设置是否有边界
     self.mainScrollView.delegate = self;
@@ -101,7 +115,7 @@
 
 #pragma mark 添加图片三个控件
 - (void)addImageViews{
-
+    
     self.leftImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, _scrollWidth, _scrollHeight)];
     self.leftImageView.contentMode = UIViewContentModeScaleAspectFit;
     
@@ -133,10 +147,10 @@
     self.pageControl.bounds = CGRectMake(0, 0, size.width, size.height);
     self.pageControl.center = CGPointMake(_scrollWidth/2, _scrollHeight - 10);
     
-//    self.pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(_scrollWidth/2-100, _scrollHeight - 20, 200, 20)];
+    //    self.pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(_scrollWidth/2-100, _scrollHeight - 20, 200, 20)];
     
     [self addSubview:self.pageControl];
-
+    
 }
 
 #pragma mark 添加信息控件
@@ -144,15 +158,15 @@
     
     self.leftmessageLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, _scrollHeight - 50, _scrollWidth, 30)];
     self.leftmessageLabel.textAlignment = NSTextAlignmentCenter;
-    self.leftmessageLabel.text = @"leftmessageLabel";
+    
     
     self.middlemessageLabel = [[UILabel alloc]initWithFrame:CGRectMake(_scrollWidth, _scrollHeight - 50, _scrollWidth, 30)];
     self.middlemessageLabel.textAlignment = NSTextAlignmentCenter;
-    self.middlemessageLabel.text = @"middlemessageLabel";
+    
     
     self.rightmessageLabel = [[UILabel alloc]initWithFrame:CGRectMake(_scrollWidth * 2, _scrollHeight - 50, _scrollWidth, 30)];
     self.rightmessageLabel.textAlignment = NSTextAlignmentCenter;
-    self.rightmessageLabel.text = @"rightmessageLabel";
+    
     
     [self.mainScrollView addSubview:self.leftmessageLabel];
     [self.mainScrollView addSubview:self.middlemessageLabel];
@@ -179,19 +193,19 @@
     
     self.mainScrollView.contentOffset = CGPointMake(_scrollWidth, 0);
     
-    _middleImageView.backgroundColor = [_imagesArr objectAtIndex:_currentIndex];
+    [_middleImageView sd_setImageWithURL:[_imagesArr objectAtIndex:_currentIndex]];
+    [_leftImageView sd_setImageWithURL:[_imagesArr objectAtIndex:( _currentIndex + _imagesArr.count - 1 ) %_imagesArr.count]];
+    [_rightImageView sd_setImageWithURL:[_imagesArr objectAtIndex:( _currentIndex + 1 ) %_imagesArr.count]];
     
-    _leftImageView.backgroundColor = [_imagesArr objectAtIndex:( _currentIndex + _imagesArr.count - 1 ) %_imagesArr.count];
-    _rightImageView.backgroundColor = [_imagesArr objectAtIndex:( _currentIndex + 1 ) %_imagesArr.count];
     
     if(_currentIndex == 0){
         
         self.leftmessageLabel.text = _messageArr[_imageNum - 1];
-    
+        
     }else{
         
         self.leftmessageLabel.text = _messageArr[_currentIndex - 1];
-
+        
     }
     
     self.middlemessageLabel.text = _messageArr[( _currentIndex + _imagesArr.count ) %_imagesArr.count];
@@ -205,7 +219,7 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-
+    
     if(scrollView.contentOffset.x == 0)
     {
         //每次左滑下标-1.

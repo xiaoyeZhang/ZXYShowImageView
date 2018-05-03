@@ -7,6 +7,7 @@
 //
 
 #import "ZXYScrollView.h"
+#import "UIImageView+WebCache.h"
 
 @interface ZXYScrollView ()<UIScrollViewDelegate>
 
@@ -72,9 +73,22 @@
     _messageArr = aMessage;
     _imageNum = [_imagesArr count];
     
-    self.leftImageView.backgroundColor = [_imagesArr objectAtIndex:_imageNum-1];
-    self.middleImageView.backgroundColor = [_imagesArr objectAtIndex:_currentIndex];
-    self.rightImageView.backgroundColor = [_imagesArr objectAtIndex:_currentIndex+1];
+
+    if (aUrls.count == 1) {
+
+        [self.middleImageView sd_setImageWithURL:[_imagesArr objectAtIndex:_currentIndex]];
+        self.middlemessageLabel.text = _messageArr[_currentIndex];
+        self.mainScrollView.scrollEnabled = NO;
+        [self.timer invalidate];
+
+        return;
+    }
+
+    
+    [self.leftImageView sd_setImageWithURL:[_imagesArr objectAtIndex:_imageNum-1]];
+    [self.middleImageView sd_setImageWithURL:[_imagesArr objectAtIndex:_currentIndex]];
+    [self.rightImageView sd_setImageWithURL:[_imagesArr objectAtIndex:_currentIndex+1]];
+    
     
     self.leftmessageLabel.text = _messageArr[_imageNum-1];
     self.middlemessageLabel.text = _messageArr[_currentIndex];
@@ -144,15 +158,15 @@
     
     self.leftmessageLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, _scrollHeight - 50, _scrollWidth, 30)];
     self.leftmessageLabel.textAlignment = NSTextAlignmentCenter;
-    self.leftmessageLabel.text = @"leftmessageLabel";
+
     
     self.middlemessageLabel = [[UILabel alloc]initWithFrame:CGRectMake(_scrollWidth, _scrollHeight - 50, _scrollWidth, 30)];
     self.middlemessageLabel.textAlignment = NSTextAlignmentCenter;
-    self.middlemessageLabel.text = @"middlemessageLabel";
+
     
     self.rightmessageLabel = [[UILabel alloc]initWithFrame:CGRectMake(_scrollWidth * 2, _scrollHeight - 50, _scrollWidth, 30)];
     self.rightmessageLabel.textAlignment = NSTextAlignmentCenter;
-    self.rightmessageLabel.text = @"rightmessageLabel";
+
     
     [self.mainScrollView addSubview:self.leftmessageLabel];
     [self.mainScrollView addSubview:self.middlemessageLabel];
@@ -178,12 +192,12 @@
     self.pageControl.currentPage = _currentIndex;
     
     self.mainScrollView.contentOffset = CGPointMake(_scrollWidth, 0);
-    
-    _middleImageView.backgroundColor = [_imagesArr objectAtIndex:_currentIndex];
-    
-    _leftImageView.backgroundColor = [_imagesArr objectAtIndex:( _currentIndex + _imagesArr.count - 1 ) %_imagesArr.count];
-    _rightImageView.backgroundColor = [_imagesArr objectAtIndex:( _currentIndex + 1 ) %_imagesArr.count];
-    
+
+    [_middleImageView sd_setImageWithURL:[_imagesArr objectAtIndex:_currentIndex]];
+    [_leftImageView sd_setImageWithURL:[_imagesArr objectAtIndex:( _currentIndex + _imagesArr.count - 1 ) %_imagesArr.count]];
+    [_rightImageView sd_setImageWithURL:[_imagesArr objectAtIndex:( _currentIndex + 1 ) %_imagesArr.count]];
+
+ 
     if(_currentIndex == 0){
         
         self.leftmessageLabel.text = _messageArr[_imageNum - 1];
