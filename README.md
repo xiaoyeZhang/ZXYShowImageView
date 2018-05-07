@@ -4,9 +4,9 @@
 
 三步完成主流App框架搭建：
 
- 1、第一步：使用CocoaPods导入ZXYShowImageView
- 2、第二步：设置ZXYShowImageView的两个数组：图片URL数组和图片信息数组,并将ZXYShowImageView加到view上
- 3、第三步（可选）：隐藏PageControl和图片信息控件
+ ## 第一步：使用CocoaPods导入ZXYShowImageView
+ ## 第二步：设置ZXYShowImageView的两个数组：图片URL数组和图片信息数组,并将ZXYShowImageView加到view上
+ ## 第三步（可选）：隐藏PageControl和图片信息控件
 
 # 第一步：使用CocoaPods导入ZXYShowImageView
 
@@ -60,6 +60,4 @@ CocoaPods 安装
   ```
      scrollView.isPageControl = YES; 默认都为YES，设为NO隐藏控件
      scrollView.isMessageLabel = YES;
-  ```
-  
   
