@@ -54,10 +54,9 @@ CocoaPods 安装
     [self.view addSubview:scrollView];
     ```
 # 第三步（可选）：隐藏PageControl和图片信息控件
-  
-    ```
-    scrollView.isPageControl = YES; 默认都为YES，设为NO隐藏控件
-    scrollView.isMessageLabel = YES;
-    ```
+   ```
+     crollView.isPageControl = YES; 默认都为YES，设为NO隐藏控件
+     scrollView.isMessageLabel = YES;
+  ```
   
   
