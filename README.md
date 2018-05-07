@@ -12,10 +12,6 @@
 
 CocoaPods 导入
 
-CocoaPods 安装
-
-  打开 Podfile，在您项目的 target 下加入以下内容。（在此以 v1.6.7 版本为例）
-
   在文件 Podfile 中加入以下内容：
 
     pod 'ZXYShowImageView'
