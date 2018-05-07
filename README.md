@@ -64,13 +64,14 @@ CocoaPods 安装
   ```  
 # 实现代理方法
 
+获取点击的图片的id
+
 ```
-# - (void)successClickDelegate:(NSInteger)num{
+ - (void)successClickDelegate:(NSInteger)num{
     
     
     NSLog(@"----------%ld ---- %@",num,arr1[num]);
 }
-`
-# `
-#
+
+```  
 
