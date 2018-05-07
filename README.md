@@ -2,11 +2,11 @@
 
 # 使用ZXYShowImageView
 
-四步完成主流App框架搭建：
+三步完成主流App框架搭建：
 
-** 第一步：使用CocoaPods导入ZXYShowImageView
-** 第二步：设置ZXYShowImageView的两个数组：图片URL数组和图片信息数组,并将ZXYShowImageView加到view上
-** 第三步（可选）：隐藏PageControl和图片信息控件
+ 第一步：使用CocoaPods导入ZXYShowImageView
+ 第二步：设置ZXYShowImageView的两个数组：图片URL数组和图片信息数组,并将ZXYShowImageView加到view上
+ 第三步（可选）：隐藏PageControl和图片信息控件
 
 # 第一步：使用CocoaPods导入ZXYShowImageView
 
@@ -33,7 +33,8 @@ CocoaPods 安装
 
 # 第二步：设置ZXYShowImageView的两个数组：图片URL数组和图片信息数组,并将ZXYShowImageView加到view上
 
-    NSArray *arr = @[@"http://img.zcool.cn/community/0142135541fe180000019ae9b8cf86.jpg",
+    、、、
+      NSArray *arr = @[@"http://img.zcool.cn/community/0142135541fe180000019ae9b8cf86.jpg",
                      @"http://img.zcool.cn/community/01f09e577b85450000012e7e182cf0.jpg",
                      @"http://img.zcool.cn/community/010f87596f13e6a8012193a363df45.jpg",
                      @"http://img.zcool.cn/community/018d4e554967920000019ae9df1533.jpg",
@@ -51,13 +52,12 @@ CocoaPods 安装
     scrollView.delegate = self;
     [scrollView setUpViewWithImageUrls:arr imgage:arr1];
     [self.view addSubview:scrollView];
- 
+    、、、
 # 第三步（可选）：隐藏PageControl和图片信息控件
   
-    scrollView.isPageControl = YES;
-    scrollView.isMessageLabel = YES;'ZXYShowImageView'
+    、、、
     scrollView.isPageControl = YES; 默认都为YES，设为NO隐藏控件
     scrollView.isMessageLabel = YES;
-    
+    、、、
   
   
