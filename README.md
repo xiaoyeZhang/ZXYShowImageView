@@ -61,3 +61,6 @@ CocoaPods 安装
      scrollView.isPageControl = YES; 默认都为YES，设为NO隐藏控件
      scrollView.isMessageLabel = YES;
   
+  ```
+  
+
