@@ -51,10 +51,10 @@ CocoaPods 安装
     ZXYScrollView *scrollView = [[ZXYScrollView alloc] initWithFrame:CGRectMake(0, BARFRAME_NAVBAR_HEIGHT, [UIScreen mainScreen].bounds.size.width, 200)];
     scrollView.delegate = self;
     [scrollView setUpViewWithImageUrls:arr imgage:arr1];
-    [self.view addSubview:scrollView];```
+    [self.view addSubview:scrollView];
 
-    
-    
+```
+
 # 第三步（可选）：隐藏PageControl和图片信息控件
 
   ```
