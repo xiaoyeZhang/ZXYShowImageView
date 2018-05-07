@@ -54,7 +54,8 @@ CocoaPods 安装
  
 # 第三步（可选）：隐藏PageControl和图片信息控件
   
-    pod 'ZXYShowImageView'
+    scrollView.isPageControl = YES;
+    scrollView.isMessageLabel = YES;'ZXYShowImageView'
     scrollView.isPageControl = YES; 默认都为YES，设为NO隐藏控件
     scrollView.isMessageLabel = YES;
     
