@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "ZXYShowImageView"
-  s.version      = "0.0.2"
+  s.version      = "0.0.3"
   s.summary      = "Public"
 
   # This description is used to generate tags and improve search results.
@@ -64,7 +64,7 @@ Pod::Spec.new do |s|
   #  the deployment target. You can optionally include the target after the platform.
   #
 
-   s.platform     = :ios
+   s.platform     = :ios, "8.0"
   # s.platform     = :ios, "8.0"
 
   #  When using multiple platforms
