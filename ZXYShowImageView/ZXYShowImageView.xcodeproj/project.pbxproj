@@ -18,6 +18,7 @@
 		2E91A2FD209B4DA200D4A1CB /* TimeImageScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E91A2F6209B4DA100D4A1CB /* TimeImageScrollViewController.m */; };
 		2E91A2FE209B4DA200D4A1CB /* Drop_downViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E91A2F8209B4DA100D4A1CB /* Drop_downViewController.m */; };
 		2E91A2FF209B4DA200D4A1CB /* ZXYScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E91A2FC209B4DA100D4A1CB /* ZXYScrollView.m */; };
+		958DE30E4EC028733B6C55DF /* libPods-ZXYShowImageView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EFF5CC3B01F3528B58548DE /* libPods-ZXYShowImageView.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +61,9 @@
 		2E91A2F9209B4DA100D4A1CB /* TimeImageScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeImageScrollViewController.h; sourceTree = "<group>"; };
 		2E91A2FB209B4DA100D4A1CB /* ZXYScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZXYScrollView.h; sourceTree = "<group>"; };
 		2E91A2FC209B4DA100D4A1CB /* ZXYScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZXYScrollView.m; sourceTree = "<group>"; };
+		4EFF5CC3B01F3528B58548DE /* libPods-ZXYShowImageView.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ZXYShowImageView.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		763BDDEBCB9807629CE68C23 /* Pods-ZXYShowImageView.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZXYShowImageView.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZXYShowImageView/Pods-ZXYShowImageView.debug.xcconfig"; sourceTree = "<group>"; };
+		7C5FBFD904848864D3F64545 /* Pods-ZXYShowImageView.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZXYShowImageView.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZXYShowImageView/Pods-ZXYShowImageView.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +71,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				958DE30E4EC028733B6C55DF /* libPods-ZXYShowImageView.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,6 +92,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0B4AC3B28A49B1D80C7B4646 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				763BDDEBCB9807629CE68C23 /* Pods-ZXYShowImageView.debug.xcconfig */,
+				7C5FBFD904848864D3F64545 /* Pods-ZXYShowImageView.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		2E91A2B8209B4C8300D4A1CB = {
 			isa = PBXGroup;
 			children = (
@@ -94,6 +108,8 @@
 				2E91A2DC209B4C8500D4A1CB /* ZXYShowImageViewTests */,
 				2E91A2E7209B4C8500D4A1CB /* ZXYShowImageViewUITests */,
 				2E91A2C2209B4C8300D4A1CB /* Products */,
+				0B4AC3B28A49B1D80C7B4646 /* Pods */,
+				8AB8E32998F03A3AF6414D80 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -155,6 +171,14 @@
 			path = Base;
 			sourceTree = "<group>";
 		};
+		8AB8E32998F03A3AF6414D80 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4EFF5CC3B01F3528B58548DE /* libPods-ZXYShowImageView.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -162,6 +186,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2E91A2ED209B4C8500D4A1CB /* Build configuration list for PBXNativeTarget "ZXYShowImageView" */;
 			buildPhases = (
+				EC6C89DF001C585ABC37CD90 /* [CP] Check Pods Manifest.lock */,
 				2E91A2BD209B4C8300D4A1CB /* Sources */,
 				2E91A2BE209B4C8300D4A1CB /* Frameworks */,
 				2E91A2BF209B4C8300D4A1CB /* Resources */,
@@ -279,6 +304,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		EC6C89DF001C585ABC37CD90 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ZXYShowImageView-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		2E91A2BD209B4C8300D4A1CB /* Sources */ = {
@@ -457,6 +503,7 @@
 		};
 		2E91A2EE209B4C8500D4A1CB /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 763BDDEBCB9807629CE68C23 /* Pods-ZXYShowImageView.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -474,6 +521,7 @@
 		};
 		2E91A2EF209B4C8500D4A1CB /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7C5FBFD904848864D3F64545 /* Pods-ZXYShowImageView.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
