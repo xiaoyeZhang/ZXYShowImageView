@@ -48,7 +48,7 @@
         self.isMessageLabel = YES;
         
         self.mainScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, _scrollWidth, _scrollHeight)];
-
+        
         [self addScrollView];
         
         [self addImageViews];
@@ -73,26 +73,71 @@
     _messageArr = aMessage;
     _imageNum = [_imagesArr count];
     
-
+    
     if (aUrls.count == 1) {
+        
+        if ([[_imagesArr objectAtIndex:_currentIndex] hasPrefix:@"http://"] || [[_imagesArr objectAtIndex:_currentIndex] hasPrefix:@"https://"]) {
+            
+            [self.middleImageView sd_setImageWithURL:[_imagesArr objectAtIndex:_currentIndex]];
 
-        [self.middleImageView sd_setImageWithURL:[_imagesArr objectAtIndex:_currentIndex]];
-        self.middlemessageLabel.text = _messageArr[_currentIndex];
+        }else{
+            self.middleImageView.image = [UIImage imageNamed:[_imagesArr objectAtIndex:_currentIndex]];
+        }
+        
+        if (@available(iOS 6.0, *)) {
+            self.middlemessageLabel.text = _messageArr[_currentIndex];
+        } else {
+            // Fallback on earlier versions
+        }
         self.mainScrollView.scrollEnabled = NO;
         [self.timer invalidate];
-
+        
         return;
     }
+    
+     if ([[_imagesArr objectAtIndex:_imageNum-1] hasPrefix:@"http://"] || [[_imagesArr objectAtIndex:_imageNum-1] hasPrefix:@"https://"]) {
+         
+         [self.leftImageView sd_setImageWithURL:[_imagesArr objectAtIndex:_imageNum-1]];
 
+     }else{
+         self.leftImageView.image = [UIImage imageNamed:[_imagesArr objectAtIndex:_imageNum-1]];
+
+     }
+    if ([[_imagesArr objectAtIndex:_currentIndex] hasPrefix:@"http://"] || [[_imagesArr objectAtIndex:_currentIndex] hasPrefix:@"https://"]) {
+        
+        [self.middleImageView sd_setImageWithURL:[_imagesArr objectAtIndex:_currentIndex]];
+
+    }else{
+        self.middleImageView.image = [UIImage imageNamed:[_imagesArr objectAtIndex:_currentIndex]];
+        
+    }
     
-    [self.leftImageView sd_setImageWithURL:[_imagesArr objectAtIndex:_imageNum-1]];
-    [self.middleImageView sd_setImageWithURL:[_imagesArr objectAtIndex:_currentIndex]];
-    [self.rightImageView sd_setImageWithURL:[_imagesArr objectAtIndex:_currentIndex+1]];
+    if ([[_imagesArr objectAtIndex:_currentIndex+1] hasPrefix:@"http://"] || [[_imagesArr objectAtIndex:_currentIndex+1] hasPrefix:@"https://"]) {
+        
+        [self.rightImageView sd_setImageWithURL:[_imagesArr objectAtIndex:_currentIndex+1]];
+
+    }else{
+        self.rightImageView.image = [UIImage imageNamed:[_imagesArr objectAtIndex:_currentIndex+1]];
+        
+    }
     
     
-    self.leftmessageLabel.text = _messageArr[_imageNum-1];
-    self.middlemessageLabel.text = _messageArr[_currentIndex];
-    self.rightmessageLabel.text = _messageArr[_currentIndex+1];
+    
+    if (@available(iOS 6.0, *)) {
+        self.leftmessageLabel.text = _messageArr[_imageNum-1];
+    } else {
+        // Fallback on earlier versions
+    }
+    if (@available(iOS 6.0, *)) {
+        self.middlemessageLabel.text = _messageArr[_currentIndex];
+    } else {
+        // Fallback on earlier versions
+    }
+    if (@available(iOS 6.0, *)) {
+        self.rightmessageLabel.text = _messageArr[_currentIndex+1];
+    } else {
+        // Fallback on earlier versions
+    }
     
     self.pageControl.currentPage = _currentIndex;
     self.pageControl.numberOfPages = _imageNum;
@@ -101,11 +146,11 @@
 
 #pragma mark 添加控件
 - (void)addScrollView{
-
+    
     self.mainScrollView.pagingEnabled = YES;
     self.mainScrollView.bounces = NO; //  设置是否有边界
     self.mainScrollView.delegate = self;
-    self.mainScrollView.contentSize = CGSizeMake(_scrollWidth * 3, _scrollHeight);
+    self.mainScrollView.contentSize = CGSizeMake(_scrollWidth * 3, 0);
     self.mainScrollView.contentOffset = CGPointMake(_scrollWidth, 0);
     self.mainScrollView.showsHorizontalScrollIndicator = NO;
     
@@ -115,16 +160,16 @@
 
 #pragma mark 添加图片三个控件
 - (void)addImageViews{
-
+    
     self.leftImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, _scrollWidth, _scrollHeight)];
-    self.leftImageView.contentMode = UIViewContentModeScaleAspectFit;
+    self.leftImageView.contentMode = UIViewContentModeScaleToFill;
     
     self.middleImageView = [[UIImageView alloc] initWithFrame:CGRectMake(_scrollWidth, 0, _scrollWidth, _scrollHeight)];
     self.middleImageView.userInteractionEnabled = YES;
-    self.middleImageView.contentMode = UIViewContentModeScaleAspectFit;
+    self.middleImageView.contentMode = UIViewContentModeScaleToFill;
     
     self.rightImageView = [[UIImageView alloc] initWithFrame:CGRectMake(_scrollWidth * 2, 0, _scrollWidth, _scrollHeight)];
-    self.rightImageView.contentMode = UIViewContentModeScaleAspectFit;
+    self.rightImageView.contentMode = UIViewContentModeScaleToFill;
     
     //添加点击事件
     UITapGestureRecognizer *singleRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickImage)];
@@ -147,26 +192,38 @@
     self.pageControl.bounds = CGRectMake(0, 0, size.width, size.height);
     self.pageControl.center = CGPointMake(_scrollWidth/2, _scrollHeight - 10);
     
-//    self.pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(_scrollWidth/2-100, _scrollHeight - 20, 200, 20)];
+    //    self.pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(_scrollWidth/2-100, _scrollHeight - 20, 200, 20)];
     
     [self addSubview:self.pageControl];
-
+    
 }
 
 #pragma mark 添加信息控件
 - (void)addMessageLabel{
     
     self.leftmessageLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, _scrollHeight - 50, _scrollWidth, 30)];
-    self.leftmessageLabel.textAlignment = NSTextAlignmentCenter;
-
+    if (@available(iOS 6.0, *)) {
+        self.leftmessageLabel.textAlignment = NSTextAlignmentCenter;
+    } else {
+        // Fallback on earlier versions
+    }
+    
     
     self.middlemessageLabel = [[UILabel alloc]initWithFrame:CGRectMake(_scrollWidth, _scrollHeight - 50, _scrollWidth, 30)];
-    self.middlemessageLabel.textAlignment = NSTextAlignmentCenter;
-
+    if (@available(iOS 6.0, *)) {
+        self.middlemessageLabel.textAlignment = NSTextAlignmentCenter;
+    } else {
+        // Fallback on earlier versions
+    }
+    
     
     self.rightmessageLabel = [[UILabel alloc]initWithFrame:CGRectMake(_scrollWidth * 2, _scrollHeight - 50, _scrollWidth, 30)];
-    self.rightmessageLabel.textAlignment = NSTextAlignmentCenter;
-
+    if (@available(iOS 6.0, *)) {
+        self.rightmessageLabel.textAlignment = NSTextAlignmentCenter;
+    } else {
+        // Fallback on earlier versions
+    }
+    
     
     [self.mainScrollView addSubview:self.leftmessageLabel];
     [self.mainScrollView addSubview:self.middlemessageLabel];
@@ -192,24 +249,65 @@
     self.pageControl.currentPage = _currentIndex;
     
     self.mainScrollView.contentOffset = CGPointMake(_scrollWidth, 0);
-
-    [_middleImageView sd_setImageWithURL:[_imagesArr objectAtIndex:_currentIndex]];
-    [_leftImageView sd_setImageWithURL:[_imagesArr objectAtIndex:( _currentIndex + _imagesArr.count - 1 ) %_imagesArr.count]];
-    [_rightImageView sd_setImageWithURL:[_imagesArr objectAtIndex:( _currentIndex + 1 ) %_imagesArr.count]];
-
- 
-    if(_currentIndex == 0){
-        
-        self.leftmessageLabel.text = _messageArr[_imageNum - 1];
     
-    }else{
+    if ([[_imagesArr objectAtIndex:_currentIndex] hasPrefix:@"http://"] || [[_imagesArr objectAtIndex:_currentIndex] hasPrefix:@"https://"]) {
         
-        self.leftmessageLabel.text = _messageArr[_currentIndex - 1];
+        [_middleImageView sd_setImageWithURL:[_imagesArr objectAtIndex:_currentIndex]];
 
+    }else{
+        _middleImageView.image = [UIImage imageNamed:[_imagesArr objectAtIndex:_currentIndex]];
+        
+    }
+    if ([[_imagesArr objectAtIndex:( _currentIndex + _imagesArr.count - 1 ) %_imagesArr.count] hasPrefix:@"http://"] || [[_imagesArr objectAtIndex:( _currentIndex + _imagesArr.count - 1 ) %_imagesArr.count] hasPrefix:@"https://"]) {
+        
+        [_leftImageView sd_setImageWithURL:[_imagesArr objectAtIndex:( _currentIndex + _imagesArr.count - 1 ) %_imagesArr.count]];
+
+    }else{
+        _leftImageView.image = [UIImage imageNamed:[_imagesArr objectAtIndex:( _currentIndex + _imagesArr.count - 1 ) %_imagesArr.count]];
+        
     }
     
-    self.middlemessageLabel.text = _messageArr[( _currentIndex + _imagesArr.count ) %_imagesArr.count];
-    self.rightmessageLabel.text = _messageArr[( _currentIndex + 1) %_imagesArr.count];
+    if ([[_imagesArr objectAtIndex:( _currentIndex + 1 ) %_imagesArr.count] hasPrefix:@"http://"] || [[_imagesArr objectAtIndex:( _currentIndex + 1 ) %_imagesArr.count] hasPrefix:@"https://"]) {
+        
+        [_rightImageView sd_setImageWithURL:[_imagesArr objectAtIndex:( _currentIndex + 1 ) %_imagesArr.count]];
+
+    }else{
+        _rightImageView.image = [UIImage imageNamed:[_imagesArr objectAtIndex:( _currentIndex + 1 ) %_imagesArr.count]];
+        
+    }
+    
+    if(_currentIndex == 0){
+        
+        if (@available(iOS 6.0, *)) {
+            self.leftmessageLabel.text = _messageArr[_imageNum - 1];
+        } else {
+            // Fallback on earlier versions
+        }
+        
+    }else{
+        
+        if (@available(iOS 6.0, *)) {
+            self.leftmessageLabel.text = _messageArr[_currentIndex - 1];
+        } else {
+            // Fallback on earlier versions
+        }
+        
+    }
+    
+    if (@available(iOS 6.0, *)) {
+        self.middlemessageLabel.text = _messageArr[( _currentIndex + _imagesArr.count ) %_imagesArr.count];
+    } else {
+        // Fallback on earlier versions
+    }if (@available(iOS 6.0, *)) {
+        self.middlemessageLabel.text = _messageArr[( _currentIndex + _imagesArr.count ) %_imagesArr.count];
+    } else {
+        // Fallback on earlier versions
+    }
+    if (@available(iOS 6.0, *)) {
+        self.rightmessageLabel.text = _messageArr[( _currentIndex + 1) %_imagesArr.count];
+    } else {
+        // Fallback on earlier versions
+    }
     
 }
 
@@ -219,7 +317,7 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-
+    
     if(scrollView.contentOffset.x == 0)
     {
         //每次左滑下标-1.
